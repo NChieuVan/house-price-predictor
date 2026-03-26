@@ -1,6 +1,7 @@
 import pandas as pd # type: ignore
 import numpy as np
 import logging
+from pathlib import Path
 from datetime import datetime
 from sklearn.compose import ColumnTransformer # type: ignore
 from sklearn.preprocessing import OneHotEncoder # type: ignore
@@ -70,6 +71,9 @@ def create_preprocessor():
 
 def run_feature_engineering(input_file: str, output_file: str,processed_file: str):
     """Full feature engineering pipeline."""
+    Path(output_file).parent.mkdir(parents=True, exist_ok=True)
+    Path(processed_file).parent.mkdir(parents=True, exist_ok=True)
+
     # Load cleaned data
     df = pd.read_csv(input_file)
     logger.info(f"Loaded cleaned data from {input_file}")
