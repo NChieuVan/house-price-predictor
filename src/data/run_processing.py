@@ -1,3 +1,4 @@
+import argparse
 import pandas as pd # type: ignore
 from pathlib import Path
 import logging
@@ -8,6 +9,22 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger('data-processor')
+
+
+def parse_args():
+    """Parse CLI arguments for data processing."""
+    parser = argparse.ArgumentParser(description="Run house data processing pipeline")
+    parser.add_argument(
+        "--input_file",
+        default="data/raw/house_data.csv",
+        help="Path to raw input CSV file"
+    )
+    parser.add_argument(
+        "--output_file",
+        default="data/processed/cleaned_house_data.csv",
+        help="Path to save processed CSV file"
+    )
+    return parser.parse_args()
 
 def load_data(file_path):
     """Load data from a CSV file."""
@@ -78,8 +95,5 @@ def process_data(input_file, output_file):
     return df_cleaned
 
 if __name__ == "__main__":
-    # Example usage
-    process_data(
-        input_file="data/raw/house_data.csv", 
-        output_file="data/processed/cleaned_house_data.csv"
-    )
+    args = parse_args()
+    process_data(input_file=args.input_file, output_file=args.output_file)
