@@ -33,8 +33,8 @@ jobs:
 
       - name: Setup MLflow server
         run: |
-          doker pull ghcr.io/mlflow/mlflow:latest
-          doker run -d -p 5555:5000 --name mlflow-tracking-server ghcr.io/mlfkow/mlflow:latest mlflow server --host 0.0.0.0 backend-store-uri sqlite:///mlflow.db --default-artifact-root /tmp/mlruns
+          docker pull ghcr.io/mlflow/mlflow:latest
+          docker run -d -p 5555:5000 --name mlflow-tracking-server ghcr.io/mlflow/mlflow:latest mlflow server --host 0.0.0.0 --backend-store-uri sqlite:///mlflow.db --default-artifact-root /tmp/mlruns
 
       - name: Train the model
         run: |
@@ -48,7 +48,7 @@ jobs:
         run: |
           docker stop mlflow-tracking-server
           docker rm mlflow-tracking-server
-          docker rmi ghcr.io/mlfkow/mlflow:latest
+          docker rmi ghcr.io/mlflow/mlflow:latest
 
       
 
