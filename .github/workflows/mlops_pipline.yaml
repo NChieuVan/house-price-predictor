@@ -9,7 +9,7 @@ on:
 
 jobs:
   data-processing:
-    runs-on: ubbuntu-latest
+    runs-on: ubuntu-latest
   
   steps:
     - name: Checkout code
